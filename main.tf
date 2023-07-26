@@ -61,7 +61,7 @@ resource "aws_s3_object" "deployment" {
 
 module "clickops_notifier_lambda" {
   source  = "terraform-aws-modules/lambda/aws"
-  version = "4.9.0"
+  version = "5.3.0"
 
   function_name = var.naming_prefix
   description   = "ClickOps Notifier Lambda"
