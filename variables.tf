@@ -228,3 +228,9 @@ variable "subcription_filter_distribution" {
     error_message = "Invalid subcription_filter_distribution provided."
   }
 }
+
+variable "create_package" {
+  type        = bool
+  description = "Controls whether Lambda package should be created"
+  default     = false
+}

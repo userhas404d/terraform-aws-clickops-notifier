@@ -72,8 +72,10 @@ module "clickops_notifier_lambda" {
   memory_size = var.lambda_memory_size
 
   # Where should we get the package from?
-  create_package         = false
-  local_existing_package = var.lambda_deployment_s3_bucket == null ? local.deployment_path : null
+  create_package         = var.create_package
+  source_path            = "${path.module}/clickopsnotifier/"
+
+  local_existing_package = var.lambda_deployment_s3_bucket == null && !var.create_package ? local.deployment_path : null
   s3_existing_package = (
     var.lambda_deployment_s3_bucket == null
     ? null
