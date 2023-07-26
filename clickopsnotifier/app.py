@@ -139,7 +139,13 @@ def handler_organizational(event, context) -> None:  # noqa: C901
     for sqs_record in sqs_records:
         logging.debug(f"{sqs_record=}")
         sqs_body = json.loads(sqs_record["body"])
-        sqs_body_message = json.loads(sqs_body["Message"])
+
+        try:
+            sqs_body_message = json.loads(sqs_body["Message"])
+        except KeyError as e:
+            logging.warning(f"Message not found in {sqs_body}")
+            continue
+
         s3_event_records = sqs_body_message["Records"]
         for s3_event_record in s3_event_records:
             logging.debug(f"{s3_event_record=}")
